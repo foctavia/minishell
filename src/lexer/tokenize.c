@@ -6,11 +6,29 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 17:18:24 by foctavia          #+#    #+#             */
-/*   Updated: 2022/08/24 16:06:17 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/09/01 14:24:06 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	insert_token(t_token *new, t_token **tokens)
+{
+	t_token	*tmp;
+
+	printf("new->value to be inserted = %s\n", new->value);
+	if (*tokens)
+	{
+		tmp = *tokens;
+		if (tmp->prev)
+			tmp->prev->next = new;
+		new->prev = tmp->prev;
+		tmp->prev = new;
+		new->next = tmp;
+	}
+	else
+		*tokens = new;
+}
 
 void	add_token(t_token *new, t_token **tokens)
 {
@@ -29,7 +47,7 @@ void	add_token(t_token *new, t_token **tokens)
 		*tokens = new;
 }
 
-static t_token	*create_token(int type, char *value)
+t_token	*create_token(int type, char *value)
 {
 	t_token	*new;
 

@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 17:16:38 by foctavia          #+#    #+#             */
-/*   Updated: 2022/08/24 17:00:50 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/09/01 13:46:18 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ms_lexer(char *str, t_token **tokens)
 			res = tokenize(tokens, &str[i], &i, type);
 		else if (is_oper(str[i], str[i + 1], &type))
 			res = tokenize(tokens, &str[i], &i, type);
-		else if (is_special(str[i], &type))
+		else if (is_special(&str[i], &type))
 			res = tokenize(tokens, &str[i], &i, type);
 		else if (str[i])
 			res = tokenize(tokens, &str[i], &i, WORD);

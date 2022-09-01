@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:01:32 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/31 16:23:14 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/09/01 14:20:40 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ int		ms_init(t_data *data, char **argv, char **env);
 ** LEXER
 **
 */
+void	insert_token(t_token *new, t_token **tokens);
+t_token	*create_token(int type, char *value);
 int		ms_lexer(char *str, t_token **tokens);
 int		tokenize(t_token **tokens, char *str, int *i, int type);
 int		is_isspace(char c);
 int		is_quote(char *str, int *type);
 int		is_oper(char c1, char c2, int *type);
-int		is_special(char c, int *type);
+int		is_special(char *str, int *type);
 void	add_token(t_token *new, t_token **tokens);
 char	*copy_chars(char *str, int *i, int n);
 char	*copy_word(char *str, int *i);
@@ -57,10 +59,10 @@ int		lexer_checker(t_token *head);
 ** EXPANSER
 **
 */
+int		is_var(char *str);
 int		ms_expanser(t_token **token);
 int		expanse_var(t_token **tokens);
 int		expanse_quote(t_token **tokens);
-void	insert_token(t_token **tokens, t_token *new);
 /*
 **
 ** PARSER

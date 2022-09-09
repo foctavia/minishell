@@ -6,7 +6,7 @@
 /*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:38:13 by foctavia          #+#    #+#             */
-/*   Updated: 2022/09/09 16:55:13 by foctavia         ###   ########.fr       */
+/*   Updated: 2022/09/09 22:20:20 by foctavia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,24 @@ int	ms_env_error(int code, char *arg)
 	return (EXIT_FAILURE);
 }
 
-void	display_env(char **env)
+void	display_env(t_env *env)
 {
-	int	i;
+	t_env	*tmp;
 
 	if (env)
 	{
-		i = 0;
-		while (env && env[i])
+		tmp = env;
+		while (tmp)
 		{
-			printf("%s\n", env[i]);
-			i++;
+			printf("%s\n", tmp->val);
+			tmp = tmp->next;
 		}
 	}
 	else
 		printf("no env\n");
 }
 
-int	ms_env(char *cmd, char **args, char **env)
+int	ms_env(char *cmd, char **args, t_env *env)
 {
 	if (ft_strcmp("env", cmd))
 		return (EXIT_FAILURE);

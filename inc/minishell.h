@@ -6,7 +6,7 @@
 /*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:01:32 by owalsh            #+#    #+#             */
-/*   Updated: 2022/09/09 16:59:19 by foctavia         ###   ########.fr       */
+/*   Updated: 2022/09/09 22:32:04 by foctavia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ extern t_global	g_global;
 */
 int		ms_init(t_data *data, char **argv, char **env);
 int		copy_env(t_data *data, char **env);
+int		add_env(t_env *new, t_env **env);
+t_env	*create_env(int	i, char *val);
 /*
 **
 ** LEXER
@@ -103,7 +105,7 @@ t_cmdlst	*create_cmdlst(int type, t_cmd *cmd);
 ** EXEC
 **
 */
-int			ms_execute(t_cmdlst **cmds, char **env);
+int			ms_execute(t_cmdlst **cmds, t_env *env);
 /*
 **
 ** CLEAN
@@ -140,8 +142,8 @@ void	display_specific_tokens(t_token *head);
 ** BUILTINS
 **
 */
-int		ms_exit(char *cmd, char **args, char **env);
-int		ms_env(char *cmd, char **args, char ** env);
-int		ms_export(char *cmd, char **args, char **env);
+int		ms_exit(char *cmd, char **args, t_env *env);
+int		ms_env(char *cmd, char **args, t_env *env);
+int		ms_export(char *cmd, char **args, t_env *env);
 
 #endif

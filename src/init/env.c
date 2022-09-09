@@ -6,70 +6,67 @@
 /*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:56:15 by foctavia          #+#    #+#             */
-/*   Updated: 2022/09/06 16:52:21 by foctavia         ###   ########.fr       */
+/*   Updated: 2022/09/09 22:16:47 by foctavia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_substr(char **env)
+int	add_env(t_env *new, t_env **env)
 {
-	int	i;
-	
-	i = 0;
-	while (env && env[i])
-		i++;
-	return (i);
-}
+	t_env	*tmp;
 
-static void	free_str(char **str, int i)
-{
-	while (i >= 0)
-		free(str[i--]);
-	free(str);
-}
-
-int	copy_substr(char **new_env, char **env, int substr)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while(env[i] && j < substr)
+	if (!env)
+		return (EXIT_FAILURE);
+	if (*env)
 	{
-		new_env[j] = malloc(sizeof(char) * (ft_strlen(env[i]) + 1));
-		if (!new_env[j])
-		{
-			free_str(new_env, j);
-			return (err_msg(-2, 0));
-		}
-		ft_strncpy(new_env[j], env[i], ft_strlen(env[i]));
-		j++;
-		i++;
+		tmp = *env;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+		new->prev = tmp;
+		new->next = NULL;
 	}
-	new_env[substr] = NULL;
+	else
+		*env = new;
 	return (EXIT_SUCCESS);
+}
+
+t_env	*create_env(int	i, char *val)
+{
+	t_env	*new;
+
+	new = malloc(sizeof(t_env));
+	if (!new)
+	{
+		err_msg(-2, 0);
+		return (NULL);
+	}
+	new->i = i;
+	new->val = val;
+	new->prev = NULL;
+	new->next = NULL;
+	return (new);
 }
 
 int	copy_env(t_data *data, char **env)
 {
-	char	**new_env;
-	int		substr;
 	int		i;
+	char	*val;
 
 	i = 0;
-	substr = 0;
+	val = NULL;
 	if (!env || !env[i] || !data)
 		return (EXIT_FAILURE);
-	substr = count_substr(env);
-	if (!substr)
-		return (EXIT_FAILURE);
-	new_env = malloc(sizeof(char *) * (substr + 1));
-	if (!new_env)
-		return (err_msg(-2, 0));
-	if (copy_substr(new_env, env, substr))
-		return (EXIT_FAILURE);
-	data->shell.env = new_env;
+	while (env && env[i] && !g_global.data->err)
+	{
+		val = malloc(sizeof(char) * (ft_strlen(env[i]) + 1));
+		if (!val)
+			return (err_msg(-2, 0));
+		val = ft_strncpy(val, env[i], ft_strlen(env[i]));
+		if (add_env(create_env(i, val), &data->shell.env))
+			return (EXIT_FAILURE);
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }

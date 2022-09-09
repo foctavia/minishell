@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 15:16:56 by owalsh            #+#    #+#             */
-/*   Updated: 2022/09/05 15:40:57 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/09/09 18:07:22 by foctavia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,19 @@ typedef struct s_terminal
 	struct termios	new;
 }				t_terminal;
 
+// ENV
+typedef struct s_env
+{
+	int				i;
+	char 			*val;
+	struct s_env	*prev;
+	struct s_env	*next;
+}				t_env;
+
 // SHELL -- minishell data
 typedef struct s_shell
 {
-	char		**env;
+	t_env		*env;
 	char		*input;
 }				t_shell;
 

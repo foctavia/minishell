@@ -6,7 +6,7 @@
 /*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:04:23 by owalsh            #+#    #+#             */
-/*   Updated: 2022/09/06 17:16:43 by foctavia         ###   ########.fr       */
+/*   Updated: 2022/09/09 22:13:45 by foctavia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,9 @@ char	*create_result(char *res)
 
 char	*ft_getenv(char *name)
 {
-	char	**env;
 	char	*res;
 	char	*new_name;
-	int		i;
+	t_env	*tmp;
 
 	if (!name)
 		return (NULL);
@@ -58,18 +57,16 @@ char	*ft_getenv(char *name)
 	new_name = ft_strjoin(new_name, "=", 1);
 	if (!new_name)
 		return (NULL);
-	env = g_global.data->shell.env;
-	i = 0;
-	while (env && env[i])
+	tmp = g_global.data->shell.env;
+	while (tmp)
 	{
-		res = ft_strstr(env[i], new_name);
+		res = ft_strstr(tmp->val, new_name);
 		if (res)
 		{
 			res = create_result(res);
 			break ;
 		}
-		else
-			i++;
+		tmp = tmp->next;
 	}
 	free(new_name);
 	return (res);

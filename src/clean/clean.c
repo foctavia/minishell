@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 12:08:26 by owalsh            #+#    #+#             */
-/*   Updated: 2022/09/08 16:25:12 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/09/09 21:56:08 by foctavia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,6 @@ void	free_tokens(t_token **tokens)
 		*tokens = NULL;
 	}
 }
-
-// void	free_tab(char **table)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (table && table[i])
-// 	{
-// 		while (i < ft_tablen(table))
-// 		{
-// 			free(table[i]);
-// 			i++;
-// 		}
-// 		free(table);
-// 	}
-// }
 
 void	free_tab(char **table)
 {

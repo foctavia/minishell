@@ -6,7 +6,7 @@
 /*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:28:02 by owalsh            #+#    #+#             */
-/*   Updated: 2022/09/09 17:07:32 by foctavia         ###   ########.fr       */
+/*   Updated: 2022/09/09 22:14:28 by foctavia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,27 @@ int	check_flag(char *arg)
 	return (EXIT_SUCCESS);
 }
 
-int	clean_exit(char **env)
+int	clean_exit(t_env **env)
 {
-	if (env)
+	t_env	*tmp;
+	t_env	*next;
+	
+	if (*env)
 	{
-		if (env)
-			free_tab(env);
+		tmp = *env;
+		while (tmp)
+		{
+			next = tmp->next;
+			if (tmp->val)
+				free(tmp->val);
+			free(tmp);
+			tmp = next;
+		}
 	}
 	return (EXIT_SUCCESS);
 }
 
-int	ms_exit(char *cmd, char **args, char **env)
+int	ms_exit(char *cmd, char **args, t_env *env)
 {
 	if (ft_strcmp("exit", cmd))
 		return (EXIT_FAILURE);
@@ -59,5 +69,5 @@ int	ms_exit(char *cmd, char **args, char **env)
 	else if (args && args[0] && !check_flag(args[0]))
 		exit(atoi(args[0]));
 	else
-		exit(clean_exit(env));
+		exit(clean_exit(&env));
 }

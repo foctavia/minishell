@@ -6,7 +6,7 @@
 /*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:38:19 by foctavia          #+#    #+#             */
-/*   Updated: 2022/09/09 16:42:10 by foctavia         ###   ########.fr       */
+/*   Updated: 2022/09/09 22:34:01 by foctavia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	ms_export_error(int code, char *arg)
 	return (EXIT_FAILURE);
 }
 
-int	add_env(char *str, char **env)
+int	export_env(char *str, t_env *env)
 {
 	int		i;
 	char	*new;
-	char	**new_env;
+	t_env	*tmp;
 
 	i = 0;
 	new = malloc(sizeof(char) * (ft_strlen(str) + 1));
@@ -53,28 +53,27 @@ int	add_env(char *str, char **env)
 			str[i + 1] = '\0';
 		i++;
 	}
+	tmp = env;
 	i = 0;
-	while (env && env[i])
+	while (tmp)
 	{
-		if (!ft_strncmp(env[i], str, ft_strlen(str)))
+		if (!ft_strncmp(tmp->val, str, ft_strlen(str)))
 		{
-			free(env[i]);
-			env[i] = new;
+			free(tmp->val);
+			tmp->val = new;
 			return (EXIT_SUCCESS);
 		}
+		tmp = tmp->next;
 		i++;
 	}
-	new_env = malloc(sizeof(char *) * 2);
-	new_env[0] = new;
-	new_env[1] = NULL;
-	env[i] = new_env[0];
+	add_env(create_env(i, new), &env);
 	return (EXIT_SUCCESS);
 }
 
-int	ms_export(char *cmd, char **args, char **env)
+int	ms_export(char *cmd, char **args, t_env *env)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	if (!env || ft_strcmp("export", cmd))
@@ -82,7 +81,7 @@ int	ms_export(char *cmd, char **args, char **env)
 	while (args && args[i])
 	{
 		if (strchr(args[i], '=') && args[i][0] != '=')
-			add_env(args[i], env);
+			export_env(args[i], env);
 		i++;
 	}
 	i = 0;

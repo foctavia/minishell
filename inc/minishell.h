@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:01:32 by owalsh            #+#    #+#             */
-/*   Updated: 2022/09/12 15:05:55 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/09/12 15:35:54 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_cmdlst	*create_cmdlst(int type, t_cmd *cmd);
 **
 */
 int			ms_execute(t_cmdlst **cmds, char **env);
-int			ms_wait(pid_t pid);
+int			ms_wait(t_cmdlst **cmds);
 /*
 **
 ** CLEAN

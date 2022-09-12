@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 15:16:56 by owalsh            #+#    #+#             */
-/*   Updated: 2022/09/12 14:56:08 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/09/12 15:33:23 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_cmd
 	int				fd_in;
 	int				fd_out;
 	int				pipe[2];
+	pid_t			pid;
 	int				builtin;
 	char			*cmd;
 	char			**cmd_args;

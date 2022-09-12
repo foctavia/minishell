@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 17:35:56 by owalsh            #+#    #+#             */
-/*   Updated: 2022/09/12 16:45:37 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/09/12 17:25:37 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,38 +54,34 @@ int	ms_wait(t_cmdlst **cmds)
 
 int	ms_dupwrite(t_cmd *cmd, t_cmd *next)
 {
-	if (cmd->redir)
+	if (cmd->redir && (cmd->redir->redir_out || cmd->redir->append_out))
 	{
-		if (cmd->redir->redir_out || cmd->redir->append_out)
-		{
-			dup2(cmd->fd_out, STDOUT_FILENO); // this is working
-			close(cmd->fd_out);
-		}
+		dup2(cmd->fd_out, STDOUT_FILENO); // this is working
+		close(cmd->fd_out);
 	}
 	else if (next)
 	{
+		printf("there is a next\n");
 		dup2(cmd->pipe[1], STDOUT_FILENO);
 		close(cmd->pipe[1]);
 	}
+	close(cmd->pipe[0]);
 	return (EXIT_SUCCESS);
 }
 
 int	ms_dupread(t_cmd *cmd, t_cmd *prev)
 {
-	if (cmd->redir)
+	if (cmd->redir && (cmd->redir->redir_in || cmd->redir->append_in))
 	{
-		if (cmd->redir->redir_in || cmd->redir->append_in)
-		{
-			dup2(cmd->fd_in, STDIN_FILENO); // this is working
-			close(cmd->fd_in);
-		}
+		dup2(cmd->fd_in, STDIN_FILENO); // this is working
+		close(cmd->fd_in);
 	}
 	else if (prev)
 	{
 		dup2(prev->pipe[0], STDIN_FILENO);
 		close(prev->pipe[0]);
 	}
-	// close(cmd->pipe[1]);
+	close(cmd->pipe[1]);
 	return (EXIT_SUCCESS);
 }
 
@@ -119,9 +115,9 @@ int	ms_execve(t_cmdlst **cmds, char **env)
 	}
 	else
 	{
-		if (cmd->fd_in)
+		if (cmd->fd_in > 0)
 			close(cmd->fd_in);
-		if (cmd->fd_out)
+		if (cmd->fd_out > 0)
 			close(cmd->fd_out);
 		if (prev && next)
 		{

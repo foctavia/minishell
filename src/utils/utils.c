@@ -6,7 +6,7 @@
 /*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:04:23 by owalsh            #+#    #+#             */
-/*   Updated: 2022/09/10 08:59:31 by foctavia         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:45:32 by foctavia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,24 @@ int	*ft_tabint(int *table, int c)
 	int		i;
 
 	i = 0;
-	while (table && table[i] != 0 && table[i] != -2)
+	while (table && table[i] && table[i] != -2)
 	{
 		if (table[i] == c)
 			return (table + i);
+		i++;
+	}
+	return (NULL);
+}
+
+char	*ft_strchr(char *str, int c)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		if (str[i] == c)
+			return (str + i);
 		i++;
 	}
 	return (NULL);

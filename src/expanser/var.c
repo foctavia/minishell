@@ -6,7 +6,7 @@
 /*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 14:58:51 by foctavia          #+#    #+#             */
-/*   Updated: 2022/09/06 17:09:35 by foctavia         ###   ########.fr       */
+/*   Updated: 2022/09/13 16:41:43 by foctavia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ int	expanse_var(t_token **tokens)
 		return (EXIT_FAILURE);
 	check_new(new);
 	insert_token(tokens, new);
+	free(str);
 	return (EXIT_SUCCESS);
 }

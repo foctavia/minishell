@@ -6,7 +6,7 @@
 /*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 14:58:35 by foctavia          #+#    #+#             */
-/*   Updated: 2022/09/07 23:58:13 by foctavia         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:47:03 by foctavia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int	expanse_quote(t_token *tokens, char *str, int idx)
 			str[i] = 0;
 			i += j + 1;
 			get_expanse(tokens, str, val, i);
+			free(val);
 			return (EXIT_SUCCESS);
 		}
 		i++;

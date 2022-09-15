@@ -6,17 +6,17 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 17:16:38 by foctavia          #+#    #+#             */
-/*   Updated: 2022/09/07 13:27:24 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/09/15 19:44:17 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ms_lexer(char *str, t_token **tokens)
+int	ms_lexer(char *str, t_token **tokens, int status)
 {
-	int	i;
-	int	res;
-	int	type;
+	int		i;
+	int		res;
+	int		type;
 
 	i = 0;
 	res = 0;
@@ -25,7 +25,9 @@ int	ms_lexer(char *str, t_token **tokens)
 	{
 		while (is_isspace(str[i]))
 			i++;
-		if (is_quote(&str[i], &type))
+		if (!ft_strncmp(&str[i], "$?", 2))
+			res = tokenize(tokens, &str[i], &i, WORD);
+		else if (is_quote(&str[i], &type))
 			res = tokenize(tokens, &str[i], &i, type);
 		else if (is_oper(str[i], str[i + 1], &type))
 			res = tokenize(tokens, &str[i], &i, type);

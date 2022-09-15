@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 17:19:58 by foctavia          #+#    #+#             */
-/*   Updated: 2022/09/07 23:34:24 by foctavia         ###   ########.fr       */
+/*   Updated: 2022/09/15 19:43:19 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,56 @@ char	*copy_word(char *str, int *i)
 	value = ft_strncpy(value, str, j);
 	*i += j;
 	return (value);
+}
+
+static long	countdigits(long n)
+{
+	int	i;
+
+	i = 1;
+	while (n > 9)
+	{
+		n /= 10;
+		i++;
+	}
+	return (i);
+}
+
+static void	putnbr(long n, char *str, int size)
+{
+	if (n > 9)
+		putnbr(n / 10, str, size - 1);
+	*(str + size) = n % 10 + '0';
+}
+
+char	*ft_itoa(int n)
+{
+	char	*str;
+	long	l;
+	int		size;
+
+	size = 0;
+	l = n;
+	if (l < 0)
+	{
+		l *= -1;
+		size += 1;
+	}
+	size += countdigits(l);
+	str = malloc(sizeof(char) * (size + 1));
+	if (!str)
+		return (NULL);
+	if (n < 0)
+		str[0] = '-';
+	putnbr(l, str, size - 1);
+	str[size] = '\0';
+	return (str);
+}
+
+char	*copy_exitstatus(int status, int *i)
+{
+	*i += 2;
+	return (ft_itoa(status));
 }
 
 char	*copy_var(char *str, int *i)

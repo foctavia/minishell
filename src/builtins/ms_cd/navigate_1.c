@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 13:52:25 by owalsh            #+#    #+#             */
-/*   Updated: 2022/09/15 19:12:13 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/09/15 19:15:43 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,7 @@ int	cd_navigate(char *path, char **env)
 		error = nav_absolute(path, env);
 	else
 		error = nav_relative(pwd, path, env);
-	if (error)
-	{
-		free(pwd);
-		return (EXIT_FAILURE);
-	}
 	set_oldpwd(pwd, env);
-	return (EXIT_SUCCESS);
+	free(pwd);
+	return (error);
 }

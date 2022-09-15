@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 17:18:24 by foctavia          #+#    #+#             */
-/*   Updated: 2022/08/28 16:34:58 by foctavia         ###   ########.fr       */
+/*   Updated: 2022/09/15 19:43:36 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	tokenize(t_token **tokens, char *str, int *i, int type)
 		add_token(create_token(type, copy_chars(str, i, 1)), tokens);
 	else if (type > 9 && type < 14)
 		add_token(create_token(type, copy_chars(str, i, 2)), tokens);
+	else if (type == WORD && !ft_strncmp(str, "$?", 2))
+		add_token(create_token(type, copy_exitstatus(str, i)), tokens);
 	else if (type == WORD)
 		add_token(create_token(type, copy_word(str, i)), tokens);
 	else if (type == VAR)

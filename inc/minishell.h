@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:01:32 by owalsh            #+#    #+#             */
-/*   Updated: 2022/09/15 16:40:36 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/09/15 19:26:26 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		copy_env(t_data *data, char **env);
 ** LEXER
 **
 */
-int		ms_lexer(char *str, t_token **tokens);
+int		ms_lexer(char *str, t_token **tokens, int res);
 int		tokenize(t_token **tokens, char *str, int *i, int type);
 int		quote_init(t_token *tokens);
 int		lexer_checker(t_token *head);

@@ -6,7 +6,7 @@
 /*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:28:02 by owalsh            #+#    #+#             */
-/*   Updated: 2022/09/09 17:07:32 by foctavia         ###   ########.fr       */
+/*   Updated: 2022/09/19 16:35:46 by foctavia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ int	clean_exit(char **env)
 		if (env)
 			free_tab(env);
 	}
+	g_global.data->terminal.dftl.c_cc[VINTR] = 3;
+	g_global.data->terminal.dftl.c_cc[VQUIT] = 34;
+	g_global.data->terminal.dftl.c_cc[VEOF] = 4;
+	tcsetattr(0, TCSANOW, &g_global.data->terminal.dftl);
 	return (EXIT_SUCCESS);
 }
 

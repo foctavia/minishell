@@ -6,7 +6,7 @@
 /*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:01:32 by owalsh            #+#    #+#             */
-/*   Updated: 2022/09/19 14:31:20 by foctavia         ###   ########.fr       */
+/*   Updated: 2022/09/19 14:45:09 by foctavia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ extern t_global	g_global;
 */
 int		ms_init(t_data *data, char **argv, char **env);
 int		copy_env(t_data *data, char **env);
+void	init_terminal(void);
 /*
 **
 ** LEXER

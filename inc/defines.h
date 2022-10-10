@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: foctavia <foctavia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 15:22:28 by owalsh            #+#    #+#             */
-/*   Updated: 2022/10/06 11:49:06 by foctavia         ###   ########.fr       */
+/*   Updated: 2022/10/10 09:16:05 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,8 @@
 # define NUM_ARG -109
 # define NO_CMD 127
 
+// EXEC
+# define PID_CHILD 0
+# define P_READ 0
+# define P_WRITE 1
 #endif

@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 16:05:55 by owalsh            #+#    #+#             */
-/*   Updated: 2022/10/06 18:47:20 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/10/10 09:41:59 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	set_fd(t_cmdlst **cmds)
 	return (EXIT_SUCCESS);
 }
 
-int	update_fd(t_cmd *cmd)
+int	redir_fd(t_cmd *cmd)
 {
 	if (cmd->fd_in > 0)
 	{

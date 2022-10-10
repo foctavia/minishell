@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 16:05:55 by owalsh            #+#    #+#             */
-/*   Updated: 2022/10/10 09:41:59 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/10/10 09:53:07 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int	redir_fd(t_cmd *cmd)
 
 int	close_fd(t_cmd *cmd)
 {
-	if (cmd->fd_in > 0)
+	if (cmd->fd_in != -1)
 		close(cmd->fd_in);
-	if (cmd->fd_out > 0)
+	if (cmd->fd_out != -1)
 		close(cmd->fd_out);
 	return (EXIT_SUCCESS);
 }

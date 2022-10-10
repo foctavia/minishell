@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:47:30 by owalsh            #+#    #+#             */
-/*   Updated: 2022/10/10 09:50:37 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/10/10 10:21:18 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	exec_pipe(t_cmdlst *cmds, char **env)
 	prev->pid = fork();
 	if (prev->pid == -1)
 		exit(errno);
-	if (prev->fd_out != -1)
+	if (prev->fd_out == -1)
 		prev->fd_out = fd[P_WRITE];
 	if (prev->pid == PID_CHILD)
 	{
@@ -114,8 +114,7 @@ int	exec_pipe(t_cmdlst *cmds, char **env)
 	}
 	close(fd[P_WRITE]);
 	close_fd(prev);
-	if (next->fd_in != -1)
+	if (next->fd_in == -1)
 		next->fd_in = fd[P_READ];
-	return (ms_execute(cmds->next, env));
-	
+	return (ms_execute(cmds->next, env));	
 }

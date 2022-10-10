@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:02:04 by owalsh            #+#    #+#             */
-/*   Updated: 2022/10/10 09:41:00 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/10/10 10:57:26 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ static void	ms_minishell(t_data *data, int *res)
 		&& !ms_expanser(&data->tokens, res, exstatus)
 		&& !ms_parser(data->tokens, &data->cmds, res))
 	{
+		// display_cmds();
+		if (data->cmds->next)
+			data->cmds = data->cmds->next;
 		// display_cmds();
 		*res = ms_execute(data->cmds, data->shell.env);
 	}

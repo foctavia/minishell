@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:47:30 by owalsh            #+#    #+#             */
-/*   Updated: 2022/10/10 10:21:18 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/10/10 12:14:15 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	exec_builtin(t_cmd *cmd, char **env)
 
 int	exec_child(t_cmd *cmd, char **env)
 {
+	printf("in exec child with cmd: %s\n", cmd->cmd);
+	printf("cmd->fd in: %d cmd->fd out: %d\n", cmd->fd_in, cmd->fd_out);
 	redir_fd(cmd);
 	if (cmd->builtin)
 		return (exec_builtin(cmd, env));
@@ -85,8 +87,9 @@ int	exec_cmd(t_cmdlst *cmds, char **env)
 	if (cmd->pid == -1)
 		exit(errno);
 	if (cmd->pid == PID_CHILD)
-		res = exec_child(cmd, env);
-	res = wait_child(cmds);
+		return (exec_child(cmd, env));
+	close(cmd->fd_in);
+	res = wait_child(cmds->prev);
 	return (res);
 }
 
@@ -97,6 +100,7 @@ int	exec_pipe(t_cmdlst *cmds, char **env)
 	t_cmd	*next;
 	t_cmd	*prev;
 	
+	printf("in exec pipe\n");
 	prev = cmds->prev->cmd;
 	next = cmds->next->cmd;
 	pipes = pipe(fd);
@@ -116,5 +120,6 @@ int	exec_pipe(t_cmdlst *cmds, char **env)
 	close_fd(prev);
 	if (next->fd_in == -1)
 		next->fd_in = fd[P_READ];
-	return (ms_execute(cmds->next, env));	
+	ms_execute(cmds->next, env);
+	return(0);
 }

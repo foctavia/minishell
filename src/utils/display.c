@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 12:13:21 by owalsh            #+#    #+#             */
-/*   Updated: 2022/10/05 15:47:57 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/10/10 12:17:35 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	display_cmd(t_cmd *cmd)
 			if (cmd->redir->append_out)
 				printf("-> append to %s\n", cmd->redir->outfile);
 		}
+		printf("cmd->fd_in = %d\n", cmd->fd_in);
+		printf("cmd->fd_out = %d\n", cmd->fd_out);
 	}
 	else
 		printf("no cmd\n");
